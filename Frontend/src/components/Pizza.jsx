@@ -5,11 +5,19 @@ import Button from 'react-bootstrap/Button';
 
 
 function Pizza() {
-    const [pizza, setPizza] = useState([])
+    const [pizza, setPizza] = useState([null])
 
     const apiUrl = 'http://localhost:5000/api/pizzas/p001';
+
+    
     const getPizza = async () => {
         const response = await fetch(apiUrl);
+
+             if (!response.ok) {
+        setPizza(null)
+        return
+    }
+
         const data = await response.json();
         setPizza(data)
     }
@@ -43,7 +51,7 @@ function Pizza() {
                 <Card.Body>
                     <Button variant="dark">Añadir 🛒</Button >
                 </Card.Body>
-            </Card>) : <h2 className="text-center">No hay pizzas disponibles</h2>}
+            </Card>) : (<h2 className="text-center">No hay pizzas disponibles</h2>)}
         </div>
 
 
