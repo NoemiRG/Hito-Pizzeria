@@ -21,7 +21,7 @@ function Pizza() {
 
     return (
         <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-            <Card border="info" style={{ width: '18rem' }}>
+            {pizza?(<Card border="info" style={{ width: '18rem' }}>
                 <Card.Img variant="top" src={pizza.img} />
                 <Card.Body>
                     <Card.Title>{pizza.name}</Card.Title>
@@ -43,7 +43,7 @@ function Pizza() {
                 <Card.Body>
                     <Button variant="dark">Añadir 🛒</Button >
                 </Card.Body>
-            </Card>
+            </Card>) : <h2 className="text-center">No hay pizzas disponibles</h2>}
         </div>
 
 
