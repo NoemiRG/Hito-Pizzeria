@@ -23,7 +23,7 @@ function Home() {
     <>
       {<Navbar />}
       {<Header />}
-      <div className="container mt-5  ">
+      <div className="container mt-5  " style={{ minHeight: "50vh" }}>
         <div className="row">
           {pizzas.length > 0 ? pizzas.map(pizza => <div className="col-md-4" key={pizza.id} style={{
             padding: "10px"
