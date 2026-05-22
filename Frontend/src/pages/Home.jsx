@@ -3,21 +3,13 @@ import Navbar from "../components/Navbar";
 import CardPizza from "../components/CardPizza";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer.jsx";
+import { useContext } from "react";
+import { HomeContext } from "../contexts/HomeContext.jsx";
 
 
 function Home() {
-  const [pizzas, setPizzas] = useState([])
 
-  const getPizzas = async () => {
-
-    const response = await fetch("http://localhost:5000/api/pizzas")
-    const data = await response.json()
-    setPizzas(data)
-  }
-
-  useEffect(() => {
-    getPizzas()
-  }, [])
+  const { pizzas } = useContext(HomeContext);
 
   return (
     <>

@@ -1,8 +1,21 @@
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import { useContext } from "react";
+import { CartContext } from "../contexts/CartContext";
 
-function CardPizza({ desc, id, img,ingredients,name,price }) {
+function CardPizza({ desc, id, img, ingredients, name, price }) {
+  const { addToCart } = useContext(CartContext);
+  const pizza = {
+    id,
+    name,
+    price,
+    img,
+    ingredients,
+    count: 1
+  };
   return (
+
+
     <div className=" card shadow-lg border-0 " style={{ width: "20rem" }}>
       <img src={img} className="card-img-top" alt={name} style={{ width: "100%", height: "200px", objectFit: "cover" }} />
 
@@ -21,11 +34,16 @@ function CardPizza({ desc, id, img,ingredients,name,price }) {
       </div>
       <div className="d-flex justify-content-around mb-3">
         <Link to={`/pizza/${id}`}>
-        <Button variant="secondary" >Ver más 👀</Button>
+          <Button variant="secondary" >Ver más 👀</Button>
         </Link>
-        <Button   variant="dark">Añadir 🛒</Button >
+        <Button variant="dark" onClick={() => {
+          console.log("click"); addToCart(pizza);
+        }}
+        >
+          Añadir 🛒
+        </Button>
       </div>
-      
+
     </div>
   );
 }

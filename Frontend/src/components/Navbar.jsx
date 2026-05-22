@@ -1,17 +1,27 @@
+import { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/esm/Button';
 import Nav from 'react-bootstrap/Nav';
 import RBNavbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
+import { CartContext } from '../contexts/CartContext';
 
 function Navbar() {
+    const { cart } = useContext(CartContext);
 
-    const total = 25000;
+    console.log(cart);
+
+
+    const total = cart.reduce(
+        (acc, p) => acc + (p.price * p.count),
+        0
+    );
     const token = false;
     return (
-        <RBNavbar expand="lg" className="bg-black" variant="dark">
+        <RBNavbar expand="lg" className="bg-black" variant={"dark"}>
             <Container>
-                <RBNavbar.Brand as={Link} to="/"  href="#home">Mamma mia</RBNavbar.Brand>
+                <RBNavbar.Brand as={Link} to="/" href="#home">Mamma mia</RBNavbar.Brand>
                 <RBNavbar.Toggle aria-controls="basic-navbar-nav" />
                 <RBNavbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -20,17 +30,17 @@ function Navbar() {
                             <>
                                 <Nav.Link as={Link} to="/profile" href="#">🔓Profile</Nav.Link>
                                 <Nav.Link as={Link} to="/" href="#">🔒Logout</Nav.Link>
-                            </>) : 
+                            </>) :
                             (<>
                                 <Nav.Link as={Link} to="/login" href="#">🔐Login</Nav.Link>
                                 <Nav.Link as={Link} to="/register" href="#">🔐Register</Nav.Link>
                             </>
-                        )}
+                            )}
                     </Nav>
-
                     <Nav >
                         <Nav.Link as={Link} to="/cart" href="#">🛒Total:${total.toLocaleString()}</Nav.Link>
                     </Nav>
+
                 </RBNavbar.Collapse>
             </Container>
         </RBNavbar>
