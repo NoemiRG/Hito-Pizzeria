@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { UserContext } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
 
+    const {/* setUser, user,*/setToken } = useContext(UserContext);
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
+        /*console.log(email, password)
+        setUser({ email, password })
+        console.log("el usuario es", user)*/
 
         if (password == '' || email == '') {
             alert("Debe ingresar un correo y una contraseña")
@@ -19,8 +25,8 @@ function Login() {
         }
         else {
             alert("Inicio de sesión exitoso")
-            setEmail("")
-            setPassword("")
+            navigate("/");
+            setToken(true);
         }
 
     }

@@ -4,9 +4,12 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../contexts/UserContext';
 
 
 export default function Profile() {
+    const { logOut } = useContext(UserContext);
     return (
         <>
             <Navbar />
@@ -44,11 +47,11 @@ export default function Profile() {
                             Cambiar contraseña
                         </Card.Link>
                         <Link to="/">
-                        <Button variant="dark">
-                            Cerrar sesión
-                        </Button>
+                            <Button variant="dark" onClick={logOut}>
+                                Cerrar sesión
+                            </Button>
                         </Link>
-                        
+
                     </Card.Body>
                 </Card>
                 </div>

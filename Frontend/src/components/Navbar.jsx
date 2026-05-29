@@ -6,10 +6,11 @@ import RBNavbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../contexts/CartContext';
+import { UserContext } from '../contexts/UserContext';
 
 function Navbar() {
     const { cart } = useContext(CartContext);
-
+    const { token,logOut } = useContext(UserContext);
     console.log(cart);
 
 
@@ -17,7 +18,6 @@ function Navbar() {
         (acc, p) => acc + (p.price * p.count),
         0
     );
-    const token = false;
     return (
         <RBNavbar expand="lg" className="bg-black" variant={"dark"}>
             <Container>
@@ -29,7 +29,7 @@ function Navbar() {
                         {token === true ? (
                             <>
                                 <Nav.Link as={Link} to="/profile" href="#">🔓Profile</Nav.Link>
-                                <Nav.Link as={Link} to="/" href="#">🔒Logout</Nav.Link>
+                                <Nav.Link as={Link} to="/" href="#" onClick={logOut}>🔒Logout</Nav.Link>
                             </>) :
                             (<>
                                 <Nav.Link as={Link} to="/login" href="#">🔐Login</Nav.Link>

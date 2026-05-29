@@ -4,11 +4,12 @@ import Navbar from "../components/Navbar.jsx";
 import Footer from '../components/Footer';
 import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
+import { UserContext } from "../contexts/UserContext";
 
 function Cart() {
 
-   const { cart ,modificarCantidad } = useContext(CartContext);
-
+    const { cart, modificarCantidad } = useContext(CartContext);
+    const { token } = useContext(UserContext);
     return (
         <>
             <Navbar />
@@ -25,7 +26,7 @@ function Cart() {
                                             <h5>{p.name}</h5>
                                         </div>
                                         <div className="d-flex align-items-center justify-content-between gap-3 ">
-                                            <Button variant="outline-danger" onClick={() => modificarCantidad ("resta", p.id)}>-</Button>
+                                            <Button variant="outline-danger" onClick={() => modificarCantidad("resta", p.id)}>-</Button>
                                             <h5>{p.count}</h5>
                                             <Button variant="outline-success" onClick={() => modificarCantidad("suma", p.id)}>+</Button>
                                             <h5>Total : ${(p.price * p.count).toLocaleString('es-CL')}</h5>
@@ -39,7 +40,7 @@ function Cart() {
                 </div>
                 <div className="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-4">
                     <h2>Total a pagar: ${cart.reduce((total, p) => total + (p.price * p.count), 0).toLocaleString('es-CL')}</h2>
-                    <Button variant="success">Finalizar pedido</Button>
+                    <Button variant="success" disabled={!token} >Finalizar pedido</Button>
                 </div>
             </div>
 
