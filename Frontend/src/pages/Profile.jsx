@@ -3,13 +3,16 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { Link,useNavigate } from 'react-router-dom';
+import { useContext,useEffect } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
 
 export default function Profile() {
-    const { logOut } = useContext(UserContext);
+    const { logOut, user } = useContext(UserContext);
+    const navigate =useNavigate();
+
+    
     return (
         <>
             <Navbar />
@@ -38,7 +41,7 @@ export default function Profile() {
                         <Card.Title>Noemí Rubio</Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                        <ListGroup.Item>📧Correo: noemi@gmail.com</ListGroup.Item>
+                        <ListGroup.Item>📧Correo: {user.email}</ListGroup.Item>
                         <ListGroup.Item>📍Dirección: Pasaje 3, Casa 567, Puente Alto</ListGroup.Item>
                         <ListGroup.Item>📱 Telefono: +56 9 1234 5678</ListGroup.Item>
                     </ListGroup>

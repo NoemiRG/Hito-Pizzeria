@@ -9,7 +9,29 @@ import { UserContext } from "../contexts/UserContext";
 function Cart() {
 
     const { cart, modificarCantidad } = useContext(CartContext);
-    const { token } = useContext(UserContext);
+    const { user } = useContext(UserContext);
+
+const handleCheckout = async () => {
+      console.log(user);
+    const res = await fetch("http://localhost:5000/api/checkouts", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+            cart: cart,
+        }),
+    });
+    let data = await res.json();
+    console.log(data)
+    if (data.error) {
+         alert(data.error) }
+    else {
+        alert("Compra realizada con exito")
+    }
+}
+
     return (
         <>
             <Navbar />
@@ -40,7 +62,7 @@ function Cart() {
                 </div>
                 <div className="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-4">
                     <h2>Total a pagar: ${cart.reduce((total, p) => total + (p.price * p.count), 0).toLocaleString('es-CL')}</h2>
-                    <Button variant="success" disabled={!token} >Finalizar pedido</Button>
+                    <Button variant="success" disabled={!user} onClick={handleCheckout}>Finalizar pedido</Button>
                 </div>
             </div>
 

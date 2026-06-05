@@ -10,8 +10,7 @@ import { UserContext } from '../contexts/UserContext';
 
 function Navbar() {
     const { cart } = useContext(CartContext);
-    const { token,logOut } = useContext(UserContext);
-    console.log(cart);
+    const { /*token,*/logOut,user } = useContext(UserContext);
 
 
     const total = cart.reduce(
@@ -26,7 +25,7 @@ function Navbar() {
                 <RBNavbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/" href="#">🍕Home</Nav.Link>
-                        {token === true ? (
+                        {user? (
                             <>
                                 <Nav.Link as={Link} to="/profile" href="#">🔓Profile</Nav.Link>
                                 <Nav.Link as={Link} to="/" href="#" onClick={logOut}>🔒Logout</Nav.Link>

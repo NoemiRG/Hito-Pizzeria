@@ -13,17 +13,17 @@ import NotFound from './pages/NotFound.jsx'
 import { UserContext } from './contexts/UserContext.jsx'
 
 function App() {
-  const { token } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/register' element={token ? <Navigate to="/" /> : <Register />} />
-        <Route path='/login' element={token ? <Navigate to="/" /> : <Login />} />
+        <Route path='/register' element={user ? <Navigate to="/" /> : <Register />} />
+        <Route path='/login' element={user ? <Navigate to="/" /> : <Login />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/pizza/:id' element={<Pizza />} />
-        <Route path='/profile' element={token ? <Profile /> : <Navigate to="/login" />} />
+        <Route path='/profile' element={user ? <Profile /> : <Navigate to="/login" />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </>

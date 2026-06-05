@@ -3,16 +3,16 @@ import Button from 'react-bootstrap/Button';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { UserContext } from "../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
 
-    const {/* setUser, user,*/setToken } = useContext(UserContext);
+    const { setUser, user/*,setToken */ } = useContext(UserContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const handleSubmit = (e) => {
+    const { login } = useContext(UserContext);
+    const handleSubmit = async (e) => {
         e.preventDefault()
         /*console.log(email, password)
         setUser({ email, password })
@@ -24,9 +24,15 @@ function Login() {
             alert("Debe ingresar una contraseña de al menos 6 caracteres")
         }
         else {
-            alert("Inicio de sesión exitoso")
-            navigate("/");
-            setToken(true);
+                try {
+                    await login(email, password);
+
+                    alert("Inicio de sesión exitoso");
+                    navigate("/");
+                } catch (error) {
+                    alert(error.message);
+                }
+  
         }
 
     }
@@ -44,6 +50,10 @@ function Login() {
                     <label htmlFor="Contraseña">Ingrese la contraseña</label>
                     <input style={{ width: "30vh" }} type="password" placeholder="********" value={password} onChange={(e) => (setPassword(e.target.value))} />
                     <Button variant="primary" type="submit">Iniciar Sesión </Button>
+                    <div>
+                        <p>¿No tienes una cuenta?</p>
+                        <Link to="/register"><span className="text primary" > Registrate</span>  </Link>
+                    </div>
                 </form>
             </div>
             <Footer />
